@@ -1,0 +1,132 @@
+/MICHAEL SOTO
+/HW 2 Added on my HW 1 source code
+/HW 3 added on my HW 2 source code
+/MARIE SIMULATOR 
+/CGS3269
+
+ 
+INPUT     /User input
+Store a   /store user input into variable A
+OUTPUT    /OUTPUT variable A
+
+INPUT     / User input
+Store b	  /Store user input into variable B
+OUTPUT    /OUTPUT variable B
+
+INPUT     / User input
+Store c	  /Store user input into variable C
+OUTPUT    /OUTPUT variable C
+
+INPUT     / User input
+Store d	  /Store user input into variable D
+OUTPUT    /OUTPUT variable D          
+
+LOAD a /load A into Accumul8r
+STORE x            
+LOAD b /load b into Accumul8r
+STORE y             
+JNS Multi  /multiplication subroutine for a*b           
+STORE temp1 
+           
+LOAD c    /load c  into Accumul8r     
+STORE x             
+LOAD d   /load d into Accumul8r      
+STORE y             
+JNS Multi    /multiplication subroutine for c*d         
+STORE temp2            
+LOAD temp1  /load temp1 into Accumul8r 
+STORE x             
+LOAD temp2   /load temp2 into Accumul8r
+STORE y  
+           
+JNS Multi  /multiplication subroutine for temp1 * temp2       
+STORE z             
+OUTPUT            
+HALT   /stahp the program        
+
+
+Multi, Hex 000 /subroutine with hex address            
+LOAD zero
+STORE Multiplication        
+LOAD y        
+SKIPCOND 400   /skip to next instruction     
+JUMP NotZero       
+CLEAR             
+JUMP Return        
+
+NotZero, LOAD y    
+SKIPCOND 000  /skip to next instruction
+JUMP PosiLoop p 
+JUMP NegLoop       
+
+
+NegLoop, LOAD Multiplication
+ ADD x
+STORE Multiplication
+LOAD y
+ADD one  
+STORE y
+SKIPCOND 400 /skip to next instruction
+JUMP NegLoop
+LOAD zero
+STORE temporary
+
+LOAD Multiplication 
+SKIPCOND 800 /skip to next instruction
+JUMP PositiveInvert         
+JUMP NegativeInvert         
+
+NegativeInvert, LOAD Multiplication
+SKIPCOND 800 /skip to next instruction
+JUMP SetMulti
+SUBT one
+STORE Multiplication
+LOAD temporary
+ADD Neg
+STORE temporary
+JUMP NegativeInvert
+
+PositiveInvert, LOAD Multiplication
+SKIPCOND 000 /skip to next instruction
+JUMP NegativeInvert
+ADD one
+STORE Multiplication
+LOAD temporary
+ADD one
+STORE temporary
+JUMP PositiveInvert
+
+
+SetMulti, LOAD temporary
+STORE Multiplication
+JUMP Return
+
+
+PosiLoop, LOAD y
+LOAD Multiplication
+ADD x
+STORE Multiplication
+LOAD y
+SUBT one
+STORE y
+SKIPCOND 400 /skip to next instruction
+JUMP PosiLoop 
+LOAD Multiplication
+
+Return, JUMPI Multi 
+
+/variable declaration
+a, DEC 0
+b, DEC 0
+c, DEC 0
+d, DEC 0
+temp1, DEC 0
+temp2, DEC 0
+temporary, DEC 0
+x, DEC 0
+y, DEC 0
+z, DEC 0
+one, Dec 1
+zero, Dec 0
+Neg, DEC -1
+Multiplication, Dec 0
